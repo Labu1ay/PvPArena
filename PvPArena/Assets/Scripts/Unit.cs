@@ -14,17 +14,28 @@ public class Unit : MonoBehaviour {
 
     [SerializeField] private Renderer _rendererUnit;
     [SerializeField] private NavMeshAgent _navMeshAgent;
-    [SerializeField] private int _health;
+    [SerializeField] private int _health = 5;
     private int _maxHealth;
 
     //private Unit _targetEnemy;
     public Unit _targetEnemy;
 
+    private float _attackPeriod = 1f;
+    private float _timer;
+
     [SerializeField] private float _distanceToAttack = 1f;
+
+    [SerializeField] private GameObject _healthBarPrefab;
+    private HealthBar _healthBar;
 
     private void Start() {
         _rendererUnit.material.color = Random.ColorHSV(0f, 1f, 1f, 1f, 1f, 1f);
         SetState(UnitState.Idle);
+
+        _maxHealth = _health;
+        GameObject healthBar = Instantiate(_healthBarPrefab);
+        _healthBar = healthBar.GetComponent<HealthBar>();
+        _healthBar.Setup(transform);
     }
     private void Update() {
         if (CurrentUnitState == UnitState.Idle) {
@@ -45,7 +56,10 @@ public class Unit : MonoBehaviour {
                 SetState(UnitState.Idle);
             }
         } else if (CurrentUnitState == UnitState.Attack) {
+            _timer += Time.deltaTime;
+            if(_timer >= _attackPeriod) {
 
+            }
         }
     }
 
@@ -82,6 +96,12 @@ public class Unit : MonoBehaviour {
 
         }
         _targetEnemy = closestUnit;
+    }
+
+    public void TakeDamage(int damageValue) {
+        _health -= damageValue;
+        //
+
     }
 
 #if UNITY_EDITOR

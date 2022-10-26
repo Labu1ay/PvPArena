@@ -52,6 +52,7 @@ MonoBehaviour:
   _health: 0
   _targetEnemy: {fileID: 0}
   _distanceToAttack: 2
+  _healthBarPrefab: {fileID: 7608857732011961078, guid: 190f1bc39e5386f4c92f842c52ef43ab, type: 3}
 --- !u!195 &1664511707
 NavMeshAgent:
   m_ObjectHideFlags: 0
